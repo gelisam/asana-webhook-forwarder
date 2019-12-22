@@ -11,12 +11,7 @@ function http_post($url, $postData) {
     )
   );
   $context  = stream_context_create($options);
-  $result = file_get_contents($url, false, $context);
-  if ($result === FALSE) {
-    trigger_error("Google script failed, propagating the failure to Asana", E_USER_ERROR);
-  }
-
-  return $result;
+  return file_get_contents($url, false, $context);
 }
 
 
@@ -67,6 +62,12 @@ if (array_key_exists("X-Hook-Secret", $headers)) {
   $raw_post_body = file_get_contents('php://input');
   $response = http_post($google_script_url, $raw_post_body);
   output("response = " . $response);
+
+  // google apps script returns 200 OK if the script throws an exception, so we
+  // have to look at the contents to figure out if the request succeeded.
+  if (strpos($response, "<title>Error</title>") !== false) {
+    trigger_error("Google script failed, propagating the failure to Asana", E_USER_ERROR);
+  }
 } else {
   // for debugging
   output("headers = " . encode_csv_row(array_keys($headers)));
