@@ -6,7 +6,7 @@ PROJECT="$(cat project)"
 PAT="$(cat pat)"
 
 if [ "$1" ]; then
-  curl -X DELETE "https://app.asana.com/api/1.0/webhooks/$WEBHOOK" \
+  curl -X DELETE "https://app.asana.com/api/1.0/webhooks/$1" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer $PAT"
 else
