@@ -3,9 +3,16 @@ set -e
 
 WORKSPACE="$(cat workspace)"
 PROJECT="$(cat project)"
-WEBHOOK="$(cat webhook)"
 PAT="$(cat pat)"
 
-curl -X DELETE "https://app.asana.com/api/1.0/webhooks/$WEBHOOK" \
-  -H "Accept: application/json" \
-  -H "Authorization: Bearer $PAT"
+if [ "$1" ]; then
+  curl -X DELETE "https://app.asana.com/api/1.0/webhooks/$WEBHOOK" \
+    -H "Accept: application/json" \
+    -H "Authorization: Bearer $PAT"
+else
+  echo "usage:"
+  echo "  $0 <webhook-gid>"
+  echo
+  echo "Use list_webhooks.sh to obtain your <webhook-gid>."
+  exit 1
+fi
