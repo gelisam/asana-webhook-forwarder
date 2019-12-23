@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-WORKSPACE="$(workspace)"
-PROJECT="$(project)"
-WEBHOOK="$(webhook)"
+WORKSPACE="$(cat workspace)"
+PROJECT="$(cat project)"
+WEBHOOK="$(cat webhook)"
 PAT="$(cat pat)"
 
 curl -X DELETE "https://app.asana.com/api/1.0/webhooks/$WEBHOOK" \
