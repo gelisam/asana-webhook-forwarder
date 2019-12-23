@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-WEBHOOK="https://gelisam.com/asana-log-collector/webhook.php"
+WEBHOOK="$(cat webhook)"
 
 curl \
   --header "X-Hook-Signature: something" \

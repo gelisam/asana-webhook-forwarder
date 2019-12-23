@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-WORKSPACE="498346170860"
-PROJECT="1148825139806889"
-WEBHOOK="https://gelisam.com/asana-log-collector/webhook.php"
+WORKSPACE="$(cat workspace)"
+PROJECT="$(cat project)"
+WEBHOOK="$(cat webhook)"
 PAT="$(cat pat)"
 
 curl -X POST "https://app.asana.com/api/1.0/webhooks?opt_pretty=true&workspace=$WORKSPACE" \
